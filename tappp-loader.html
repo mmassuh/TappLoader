@@ -96,16 +96,14 @@ body {
   33.33%,83.15%{stroke-dashoffset:0}
   83.16%,100%{stroke-dashoffset:19.7}
 }
-/* Fill: C3 — jumps empty at 99.83%, well before mask retracts at cycle boundary */
+/* Fill: C3 — holds at full through 100%, cycle boundary reset is atomic */
 @-webkit-keyframes f3 {
   0%,33.33%{stroke-dashoffset:13.1}
-  50%,99.82%{stroke-dashoffset:0}
-  99.83%{stroke-dashoffset:13.1}
+  50%,100%{stroke-dashoffset:0}
 }
 @keyframes f3 {
   0%,33.33%{stroke-dashoffset:13.1}
-  50%,99.82%{stroke-dashoffset:0}
-  99.83%{stroke-dashoffset:13.1}
+  50%,100%{stroke-dashoffset:0}
 }
 /* Mask: covers C1 clockwise 50→66.67%, resets after fill has already jumped */
 @-webkit-keyframes m1 {
