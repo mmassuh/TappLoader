@@ -67,6 +67,29 @@ body {
 </style>
 </head>
 <body>
+<div id="tr-gate" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:#0d0f1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <div style="width:100%;max-width:320px">
+    <div style="font-size:22px;font-weight:700;margin-bottom:4px;color:#e2e6f8">TAPPP — Loader TV</div>
+    <div style="font-size:13px;color:#8891b5;margin-bottom:24px">Enter password to continue</div>
+    <input type="password" id="tr-gate-input" placeholder="Password" onkeydown="if(event.key==='Enter')trCheckGate()" style="width:100%;background:#141727;border:1px solid #272c47;border-radius:8px;padding:10px 12px;color:#e2e6f8;font-size:14px;outline:none;margin-bottom:10px"/>
+    <button onclick="trCheckGate()" style="width:100%;padding:12px;font-size:14px;font-weight:600;background:#5468ff;color:#fff;border:none;border-radius:8px;cursor:pointer">Continue</button>
+    <div id="tr-gate-err" style="font-size:12px;color:#dc2626;margin-top:10px;text-align:center;display:none">Incorrect password</div>
+  </div>
+</div>
+<div id="tr-main" style="display:none">
+<script>
+const _TR_HASH='8a974322dbf4da39a09b2cb9c77c378cc8027824a3fb9d83f63e23bedcf01a58';
+const _TR_KEY='tappp-auth';
+async function trCheckGate(){
+  const val=document.getElementById('tr-gate-input').value;
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
+  const hash=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hash===_TR_HASH){sessionStorage.setItem(_TR_KEY,'1');trUnlock();}
+  else{document.getElementById('tr-gate-err').style.display='block';document.getElementById('tr-gate-input').value='';document.getElementById('tr-gate-input').focus();}
+}
+function trUnlock(){document.getElementById('tr-gate').style.display='none';document.getElementById('tr-main').style.display='block';}
+if(sessionStorage.getItem(_TR_KEY)==='1')trUnlock();
+</script>
 <div class="page">
 
 <!-- ════ ISOTIPO — TV ════ -->
@@ -209,5 +232,6 @@ function toggleLabel() {
 }
 </script>
 
+</div><!-- /tr-main -->
 </body>
 </html>
