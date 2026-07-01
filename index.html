@@ -212,13 +212,13 @@ body {
 </div>
 <script>
 (function(){
-  var s=sessionStorage.getItem('tg');
+  var s=localStorage.getItem('tg');
   if(s==='ok'){document.getElementById('gate').style.display='none';}
 })();
 function gateCheck(){
   var v=document.getElementById('gate-input').value;
   if(v==='TapppS3cured!'){
-    sessionStorage.setItem('tg','ok');
+    localStorage.setItem('tg','ok');
     document.getElementById('gate').style.display='none';
   } else {
     document.getElementById('gate-err').textContent='incorrect password';
